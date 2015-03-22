@@ -2,19 +2,21 @@ from __future__ import print_function
 from random import random
 
 class Population :    
-    def __init__(self, size, rankings, base_fitness=40, genome_size=8) :
+    def __init__(self, size, rankings, base_fitness=40, genome_size=8, mutations=True) :
         self.size = size
         self.population = []
         self.rankings = rankings
         self.base_fitness = base_fitness
         self.genome_size = genome_size
+        self.mutations = mutations
         for _ in range(size) :
             self.makePerson()
         
     def makePerson(self) :
         p = []
         for _ in range(self.genome_size) :
-            p.append([int(round(random())), int(round(random()))])
+#            p.append([int(round(random())), int(round(random()))])
+            p.append([(1.0 if random() < .25 else 0.0), (1.0 if random() < .25 else 0.0)])
         self.population.append(p)
         
     def fitness(self, ind) :
@@ -36,35 +38,42 @@ class Population :
         for i in range(self.size) :
             if rand < fitnesses[i] :
                 return self.population[i]
-            
+    
+    def mutate(self, x) :
+        for i in range(self.genome_size) :
+            for a in range(len(x[0])) :
+                if random() < .05 :
+                    x[i][a] = abs(x[i][a] - 1)
+                    
+    def crossover(self, x) :
+        point = int(random()*self.genome_size) + 1
+        new_x = list(x)
+        for i in range(point, self.genome_size) :
+            new_x[i].reverse()
+        return new_x
+                    
     def reproduce(self) :
-        def crossover(x) :
-            point = int(random()*self.genome_size) + 1
-            new_x = list(x)
-            for i in range(point, self.genome_size) :
-                new_x[i].reverse()
-            return new_x
-        
-        def mutate(x) :
-            for i in range(self.genome_size) :
-                for a in range(len(x[0])) :
-                    if random() < .05 :
-                        x[i][a] = abs(x[i][a] - 1)
-        
         x, y = self.select(), self.select()
         
-        new_x, new_y = crossover(x), crossover(y)
+        new_x, new_y = self.crossover(x), self.crossover(y)
         strand_x = int(round(random()))
         strand_y = int(round(random()))
         child = [[x[i][strand_x], y[i][strand_y]] for i in range(len(x))]
         
-        mutate(child)
+        if self.mutations :
+            self.mutate(child)
         
         return child
     
     def append(self, child) :
         self.population.append(child)
         self.size += 1
+        
+    def fitnesses(self) :
+        fits = []
+        for i in self.population :
+            fits.append(self.fitness(i))
+        return fits
         
     def average_fitness(self) :
         total = 0.0

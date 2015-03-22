@@ -24,9 +24,20 @@ class Population_Simulation :
         if avgfitness :
             self.population.print_average_fitness()
         
-    def fitness_history(self) :
+    def avg_fitness_history(self) :
         fithis = []
-        for population in history :
-            avgfitness = population.average_fitness()
-            fithis.append((avgfitness-avgfitness%.001))
+        for population in self.history :
+            fithis.append(population.average_fitness())
+        return fithis
+        
+    def max_fitness_history(self) :
+        fithis = []
+        for population in self.history :
+            fithis.append(max(population.fitnesses()))
+        return fithis
+        
+    def min_fitness_history(self) :
+        fithis = []
+        for population in self.history :
+            fithis.append(min(population.fitnesses()))
         return fithis
