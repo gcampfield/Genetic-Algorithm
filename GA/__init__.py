@@ -1,1 +1,1 @@
-__all__ = [ 'population', 'population_simulation' ]
+__all__ = [ 'population', 'simulation' ]
