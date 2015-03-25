@@ -2,10 +2,10 @@ from __future__ import print_function
 from random import random
 
 class Population :    
-    def __init__(self, size, rankings=False, base_fitness=40, genome_size=8, mutations=.05) :
+    def __init__(self, size, rankings=False, base_fitness=400, genome_size=8, mutations=.05) :
         '''
         size - number of members in the population
-        rankings - a list of floats representing the weights of each of the genes
+        rankings - a list of numbers representing the weights of each of the genes
             -> Minimum length is 'genome_size'
         base_fitness - base number to make the drone out the importance of the fitness
         genome_size - the number of genes in the genome
@@ -16,7 +16,7 @@ class Population :
         if rankings :
             self.rankings = rankings
         else :
-            rankings = [1.0 for _ in range(genome_size)]
+            self.rankings = [50 for _ in range(genome_size)]
         self.base_fitness = base_fitness
         self.genome_size = genome_size
         self.mutations = mutations
@@ -29,8 +29,9 @@ class Population :
         '''
         p = []
         for _ in range(self.genome_size) :
-            p.append([int(round(random())), int(round(random()))])
+            p.append([round(random()), round(random())])
             # p.append([(1.0 if random() < .25 else 0.0), (1.0 if random() < .25 else 0.0)])
+            # p.append([0.0, 0.0])
         self.population.append(p)
         
     def fitness(self, ind) :
@@ -41,7 +42,7 @@ class Population :
         '''
         fit = self.base_fitness
         for i in range(self.genome_size) :
-            fit += (ind[i][0] or ind[i][1])*self.rankings[i]*10
+            fit += (ind[i][0] or ind[i][1])*self.rankings[i]
         return fit
         
     def sort(self) :
@@ -56,8 +57,9 @@ class Population :
 
         returns: selected individual
         '''
-        fitnesses = [self.fitness(i) for i in self.population]
+        fitnesses = self.fitnesses()
         total = sum(fitnesses)+0.0
+        if total==0.0 : return self.population[0]
         fitnesses[0] = fitnesses[0]/total
         for i in range(1, self.size) :
             fitnesses[i] = fitnesses[i]/total+fitnesses[i-1]
@@ -82,7 +84,7 @@ class Population :
         returns: new chromosome after crossing over
         '''
         point = int(random()*self.genome_size) + 1
-        new_x = list(x)
+        new_x = [i[:] for i in x]
         for i in range(point, self.genome_size) :
             new_x[i].reverse()
         return new_x

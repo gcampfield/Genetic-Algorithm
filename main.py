@@ -4,17 +4,22 @@ from __future__ import print_function
 from GA.simulation import Population_Simulation
 import matplotlib.pyplot as plt
 
-FITNESS_RANKINGS = [0.65, 0.31, 0.38, 0.83, 0.58, 0.05, 0.51, 0.81, 0.04, 0.37]
-simulation = Population_Simulation(10, FITNESS_RANKINGS, mutations=False)
+# Initialize the Population_Simulation
+FITNESS_RANKINGS = [65, 31, 38, 83, 58, 05, 51, 81, 04, 37]
+simulation = Population_Simulation(20, FITNESS_RANKINGS, base_fitness=0, genome_size=10, mutations=False)
 
-simulation.print_sim(population=True)
+# Print initial state of the simulation
+simulation.print_sim(population=False)
 
 print("\nRunning Simulation for 100 generations...\n")
 simulation.run(100)
 
-simulation.print_sim(population=True)
+# Print final state of the simulation
+simulation.print_sim(population=False)
 
-plt.plot(simulation.max_fitness_history(), 'g')
-plt.plot(simulation.avg_fitness_history(), 'b')
-plt.plot(simulation.min_fitness_history(), 'r')
+# Graph the simulation with matplotlib
+plt.plot(simulation.max_fitness_history(), 'g', label="Max. Fitness")
+plt.plot(simulation.avg_fitness_history(), 'b', label="Average Fitness")
+plt.plot(simulation.min_fitness_history(), 'r', label="Min. Fitness")
+plt.legend(loc="lower right")
 plt.show()
