@@ -2,7 +2,7 @@ from __future__ import print_function
 from random import random
 
 class Population :    
-    def __init__(self, size, rankings=False, base_fitness=400, genome_size=8, mutations=.05) :
+    def __init__(self, size, rankings=False, base_fitness=400, genome_size=8, mutations=0.05) :
         '''
         size - number of members in the population
         rankings - a list of numbers representing the weights of each of the genes
@@ -103,8 +103,7 @@ class Population :
         strand_y = int(round(random()))
         child = [[x[i][strand_x], y[i][strand_y]] for i in range(len(x))]
         
-        if self.mutations :
-            self.mutate(child)
+        self.mutate(child)
         
         return child
     

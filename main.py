@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 # Initialize the Population_Simulation
 FITNESS_RANKINGS = [65, 31, 38, 83, 58, 05, 51, 81, 04, 37]
-simulation = Population_Simulation(20, FITNESS_RANKINGS, base_fitness=0, genome_size=10, mutations=False)
+simulation = Population_Simulation(20, FITNESS_RANKINGS, mutations=False)
 
 # Print initial state of the simulation
 simulation.print_sim(population=False)
