@@ -2,8 +2,8 @@ from __future__ import print_function
 from .population import Population
 
 class Population_Simulation :
-    def __init__(self, size, rankings, base_fitness=0, genome_size=8) :
-        self.population = Population(size, rankings, base_fitness, genome_size)
+    def __init__(self, size, rankings, base_fitness=0, genome_size=8, mutations=False) :
+        self.population = Population(size, rankings, base_fitness, genome_size, mutations)
         self.history = [self.population]
         self.generation = 0
         

@@ -5,7 +5,7 @@ from GA.simulation import Population_Simulation
 import matplotlib.pyplot as plt
 
 FITNESS_RANKINGS = [0.65, 0.31, 0.38, 0.83, 0.58, 0.05, 0.51, 0.81, 0.04, 0.37]
-simulation = Population_Simulation(10, FITNESS_RANKINGS)
+simulation = Population_Simulation(10, FITNESS_RANKINGS, mutations=False)
 
 simulation.print_sim(population=True)
 
