@@ -2,7 +2,7 @@ from __future__ import print_function
 from .population import Population
 
 class Population_Simulation :
-    def __init__(self, size, rankings=False, base_fitness=0, genome_size=8, mutations=0.05) :
+    def __init__(self, size, rankings=False, base_fitness=400, genome_size=8, mutations=0.005) :
         '''
         size - number of members in the population
         rankings - a list of floats representing the weights of each of the genes

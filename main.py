@@ -6,16 +6,16 @@ import matplotlib.pyplot as plt
 
 # Initialize the Population_Simulation
 FITNESS_RANKINGS = [65, 31, 38, 83, 58, 05, 51, 81, 04, 37]
-simulation = Population_Simulation(20, FITNESS_RANKINGS, mutations=False)
+simulation = Population_Simulation(10, rankings=FITNESS_RANKINGS)
 
 # Print initial state of the simulation
-simulation.print_sim(population=False)
+simulation.print_sim(population=True)
 
 print("\nRunning Simulation for 100 generations...\n")
 simulation.run(100)
 
 # Print final state of the simulation
-simulation.print_sim(population=False)
+simulation.print_sim(population=True)
 
 # Graph the simulation with matplotlib
 plt.plot(simulation.max_fitness_history(), 'g', label="Max. Fitness")

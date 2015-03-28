@@ -2,7 +2,7 @@ from __future__ import print_function
 from random import random
 
 class Population :    
-    def __init__(self, size, rankings=False, base_fitness=400, genome_size=8, mutations=0.05) :
+    def __init__(self, size, rankings=False, base_fitness=400, genome_size=8, mutations=0.005) :
         '''
         size - number of members in the population
         rankings - a list of numbers representing the weights of each of the genes
@@ -29,9 +29,9 @@ class Population :
         '''
         p = []
         for _ in range(self.genome_size) :
-            p.append([round(random()), round(random())])
+            # p.append([round(random()), round(random())])
             # p.append([(1.0 if random() < .25 else 0.0), (1.0 if random() < .25 else 0.0)])
-            # p.append([0.0, 0.0])
+            p.append([0.0, 0.0])
         self.population.append(p)
         
     def fitness(self, ind) :
